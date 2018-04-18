@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="PWA 本文章理论部分参考于 Progressive Web Apps (PWA) 中文版 一书  定义PWA为渐进式网络应用 ( Progressive Web Apps )的缩写，更通俗的解释即为：可以离线加载内容的一种特殊网站，为什么要叫渐进式呢，主要是由于PWA的特点，在不支持的设备上浏览时，回加载传统的网站形式，如果设备支持的话，则可以通过缓存控制等等方式来实现更快的加载，离线数据等功">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwa 入门实践-概念阐述">
+<meta property="og:url" content="http://yoursite.com/2018/04/17/pwa 入门实践-概念阐述/index.html">
+<meta property="og:site_name" content="Leo‘s SSR">
+<meta property="og:description" content="PWA 本文章理论部分参考于 Progressive Web Apps (PWA) 中文版 一书  定义PWA为渐进式网络应用 ( Progressive Web Apps )的缩写，更通俗的解释即为：可以离线加载内容的一种特殊网站，为什么要叫渐进式呢，主要是由于PWA的特点，在不支持的设备上浏览时，回加载传统的网站形式，如果设备支持的话，则可以通过缓存控制等等方式来实现更快的加载，离线数据等功">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-18T07:55:20.530Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pwa 入门实践-概念阐述">
+<meta name="twitter:description" content="PWA 本文章理论部分参考于 Progressive Web Apps (PWA) 中文版 一书  定义PWA为渐进式网络应用 ( Progressive Web Apps )的缩写，更通俗的解释即为：可以离线加载内容的一种特殊网站，为什么要叫渐进式呢，主要是由于PWA的特点，在不支持的设备上浏览时，回加载传统的网站形式，如果设备支持的话，则可以通过缓存控制等等方式来实现更快的加载，离线数据等功">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/17/pwa 入门实践-概念阐述/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>pwa 入门实践-概念阐述 | Leo‘s SSR</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Leo‘s SSR</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签<span class="badge">2</span>
+      </a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档<span class="badge">7</span>
+      </a>
+</li>
+
+      
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/pwa 入门实践-概念阐述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lvkunpeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo‘s SSR">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">pwa 入门实践-概念阐述
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+                
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T17:17:45+08:00">2018-04-17</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="PWA"><a href="#PWA" class="headerlink" title="PWA"></a>PWA</h1><blockquote>
+<p>本文章理论部分参考于 Progressive Web Apps (PWA) 中文版 一书</p>
+</blockquote>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>PWA为渐进式网络应用 ( Progressive Web Apps )的缩写，更通俗的解释即为：可以离线加载内容的一种特殊网站，为什么要叫渐进式呢，主要是由于PWA的特点，在不支持的设备上浏览时，回加载传统的网站形式，如果设备支持的话，则可以通过缓存控制等等方式来实现更快的加载，离线数据等功能的PWA 应用（网站）</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>利用PWA技术的网站有以下优点：</p>
+<ul>
+<li>渐进式</li>
+<li>可以离线加载部分内容</li>
+<li>更可控的缓存机制</li>
+<li>安全性高</li>
+<li>类似原生的体验（可以在主屏幕放置入口，自定义的图标，消息推动，自定义首屏，自定义的报错提示）</li>
+<li>节省资源，以及更快的打开速度（利用缓存机制）</li>
+<li>避免了类似app的审核过程（例如苹果商店，谷歌商店）</li>
+</ul>
+<h2 id="技术要点"><a href="#技术要点" class="headerlink" title="技术要点"></a>技术要点</h2><p>可以做到以上的优势，主要是由于以下几种技术</p>
+<ul>
+<li>Service Workers</li>
+<li>manifest（清单文件）</li>
+</ul>
+<p>下面我们对这些关键技术点进行展开阐述</p>
+<h3 id="manifest（清单文件）"><a href="#manifest（清单文件）" class="headerlink" title="manifest（清单文件）"></a>manifest（清单文件）</h3><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><p>manifest（清单文件）其实就是一个JSON文件，提供应用相关的信息<br>eg:<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"Progressive Times web app"</span>,</span><br><span class="line">  <span class="attr">"short_name"</span>: <span class="string">"Progressive Times"</span>,</span><br><span class="line">  <span class="attr">"start_url"</span>: <span class="string">"/index.html"</span>,</span><br><span class="line">  <span class="attr">"display"</span>: <span class="string">"standalone"</span>,</span><br><span class="line">  <span class="attr">"theme_color"</span>: <span class="string">"#FFDF00"</span>,</span><br><span class="line">  <span class="attr">"background_color"</span>: <span class="string">"#FFDF00"</span>,</span><br><span class="line">  <span class="attr">"icons"</span>: [&#123;</span><br><span class="line">      <span class="attr">"src"</span>: <span class="string">"homescreen.png"</span>,</span><br><span class="line">      <span class="attr">"sizes"</span>: <span class="string">"192x192"</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"image/png"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"src"</span>: <span class="string">"homescreen-144.png"</span>,</span><br><span class="line">      <span class="attr">"sizes"</span>: <span class="string">"144x144"</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"image/png"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>name 用作当用户被提示安装应用时出现的文本。同时也是启动页面显示名字</li>
+<li>short_name 用作当应用安装后出现在用户主屏幕上的文本</li>
+<li>start_url 决定了当用户从设备的主屏幕开启 Web 应用时所出现的第一个页面。根据构建的 Web 应用类型，你可能需要预设如何首次加载。display 字段表示开发者希望他们的 Web 应用如何向用户展示。</li>
+<li>theme_color 字段，可以对浏览器的地址栏进行着色，以符合网站的主色调。</li>
+<li>icons 字段决定了当 Web 应用被添加到设备主屏幕时所显示的图标。</li>
+<li>background_color 启动页面的颜色</li>
+<li>display 设置启动页面的显示模式<ul>
+<li>Fullscreen - 打开 Web 应用并占用整个可用的显示区域。</li>
+<li>Standalone - 打开 Web 应用以看起来像一个独立的原生应用。此模式下，用户代理将排除诸如 URL 栏等标准浏览器 UI 元素，但可以包括诸如状态栏和系统返回按钮的其他系统 UI 元素。</li>
+<li>Minimal-ui - 此模式类似于 fullscreen，但为终端用户提供了可访问的最小 UI 元素集合，例如，后退按钮、前进按钮、重载按钮以及查看网页地址的一些方式。</li>
+<li>Browser - 使用操作系统内置的标准浏览器来打开 Web 应用。 （默认参数）<h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Progressive Times<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"manifest"</span> <span class="attr">href</span>=<span class="string">"/manifest.json"</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    ..content goes here..</span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="添加到主屏幕条件"><a href="#添加到主屏幕条件" class="headerlink" title="添加到主屏幕条件"></a>添加到主屏幕条件</h3><p>显示“添加到主屏幕”提示，需要满足以下几个条件：</p>
+<ul>
+<li>需要 manifest.json 文件</li>
+<li>清单文件需要启动 URL</li>
+<li>需要 144x144 的 PNG 图标</li>
+<li>网站正在使用通过 HTTPS 运行的 Service Worker</li>
+<li>用户需要至少浏览网站两次，并且两次访问间隔在五分钟之上</li>
+</ul>
+<h3 id="控制浏览器的添加到主屏幕事件"><a href="#控制浏览器的添加到主屏幕事件" class="headerlink" title="控制浏览器的添加到主屏幕事件"></a>控制浏览器的添加到主屏幕事件</h3><h4 id="当你不希望浏览器的添加到主屏幕提示时"><a href="#当你不希望浏览器的添加到主屏幕提示时" class="headerlink" title="当你不希望浏览器的添加到主屏幕提示时"></a>当你不希望浏览器的添加到主屏幕提示时</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'beforeinstallprompt'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  e.preventDefault();</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="判断用户对该功能的选择情况"><a href="#判断用户对该功能的选择情况" class="headerlink" title="判断用户对该功能的选择情况"></a>判断用户对该功能的选择情况</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'beforeinstallprompt'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">  event.userChoice.then(<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;          </span><br><span class="line">    <span class="built_in">console</span>.log(result.outcome);</span><br><span class="line">    <span class="keyword">if</span> (result.outcome == <span class="string">'dismissed'</span>) &#123;             </span><br><span class="line">      <span class="comment">// 发送数据以进行分析</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 发送数据以进行分析</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>为 beforeinstallprompt 事件添加了监听器。这个事件有个叫做 userChoice 的对象，它返回用户决定的 Promise 。我们可以使用这个 Promise 的结果来判断用户是关掉提示还是确认提示。</p>
+<p>此时，你可以决定将此信息发送到 Web 分析工具，以便随着时间的推移跟踪此功能的使用情况。这项技术可以用于了解用户如何与“添加到主屏幕”提示进行交互。</p>
+<h4 id="控制提示"><a href="#控制提示" class="headerlink" title="控制提示"></a>控制提示</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Progressive Times<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btnSave"</span> <span class="attr">disabled</span>&gt;</span>Click this to show the prompt<span class="tag">&lt;/<span class="name">button</span>&gt;</span>                       </span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> btnSave = <span class="built_in">document</span>.getElementById(<span class="string">'btnSave'</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> savedPrompt;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">if</span> (<span class="string">'serviceWorker'</span> <span class="keyword">in</span> navigator) &#123;                                                      </span></span><br><span class="line"><span class="javascript">        navigator.serviceWorker.register(<span class="string">'/service-worker.js'</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">registration</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">// 注册成功</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(<span class="string">'ServiceWorker registration successful with scope: '</span>,</span></span><br><span class="line"><span class="undefined">            registration.scope);</span></span><br><span class="line"><span class="javascript">        &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">// 注册失败 :(</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(<span class="string">'ServiceWorker registration failed: '</span>, err);</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.addEventListener(<span class="string">'beforeinstallprompt'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="undefined">        e.preventDefault();                                                                    </span></span><br><span class="line"><span class="javascript">        btnSave.removeAttribute(<span class="string">'disabled'</span>);                                                   </span></span><br><span class="line"><span class="undefined">        savedPrompt = e;                                                                       </span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> <span class="literal">false</span>;</span></span><br><span class="line"><span class="undefined">      &#125;);</span></span><br><span class="line"><span class="javascript">      btnSave.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;                                          </span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (savedPrompt !== <span class="literal">undefined</span>) &#123;                                                       </span></span><br><span class="line"><span class="undefined">          savedPrompt.prompt();                                                                </span></span><br><span class="line"><span class="javascript">          savedPrompt.userChoice.then(<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;                                      </span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (result.outcome == <span class="string">'dismissed'</span>) &#123;</span></span><br><span class="line"><span class="javascript">              <span class="built_in">console</span>.log(<span class="string">'User dismissed homescreen install'</span>);</span></span><br><span class="line"><span class="javascript">            &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">              <span class="built_in">console</span>.log(<span class="string">'User added to homescreen'</span>);</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="javascript">            savedPrompt = <span class="literal">null</span>;                                                                </span></span><br><span class="line"><span class="undefined">          &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;);</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>点击此按钮会显示提示</li>
+<li>检查是否支持 Service Workers，如果支持则注册</li>
+<li>为 ‘beforeinstallprompt’ 事件添加事件监听器</li>
+<li>此时，我们可以启用按钮</li>
+<li>我们将事件保存在变量中，这样它可以稍后触发</li>
+<li>为按钮的点击事件添加事件监听器</li>
+<li>用户与我们的应用进行了积极的互动，Chrome 已经尝试提前提醒，所以让我们来看看提示</li>
+<li>遵循用户的选择</li>
+<li>我们不再需要提示，清理掉它</li>
+</ul>
+<h3 id="调试清单文件"><a href="#调试清单文件" class="headerlink" title="调试清单文件"></a>调试清单文件</h3><p>支持pwa技术网站：<a href="https://www.flipkart.com/" target="_blank" rel="noopener">https://www.flipkart.com/</a></p>
+<ul>
+<li>可以通过Google Chrome中的Application标签中的Manifest菜单调试</li>
+<li>通过在线网站调试 <a href="https://manifest-validator.appspot.com/" target="_blank" rel="noopener">https://manifest-validator.appspot.com/</a></li>
+<li>测试网址：<a href="https://hub.settled.co.uk/offline" target="_blank" rel="noopener">https://hub.settled.co.uk/offline</a><blockquote>
+<p>需要梯子访问</p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/16/VuePress-基于vue-ssr的静态网站生器初体验/" rel="next" title="VuePress-基于vue-ssr的静态网站生器初体验">
+                <i class="fa fa-chevron-left"></i> VuePress-基于vue-ssr的静态网站生器初体验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/18/pwa 入门实践-Service Workers/" rel="prev" title="pwa 入门实践-Service Workers">
+                pwa 入门实践-Service Workers <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">lvkunpeng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/lvkunpeng" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:lvkunpengpro@gmail.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PWA"><span class="nav-number">1.</span> <span class="nav-text">PWA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">1.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术要点"><span class="nav-number">1.3.</span> <span class="nav-text">技术要点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#manifest（清单文件）"><span class="nav-number">1.3.1.</span> <span class="nav-text">manifest（清单文件）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义："><span class="nav-number">1.3.1.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引入"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">引入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加到主屏幕条件"><span class="nav-number">1.3.2.</span> <span class="nav-text">添加到主屏幕条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制浏览器的添加到主屏幕事件"><span class="nav-number">1.3.3.</span> <span class="nav-text">控制浏览器的添加到主屏幕事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#当你不希望浏览器的添加到主屏幕提示时"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">当你不希望浏览器的添加到主屏幕提示时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断用户对该功能的选择情况"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">判断用户对该功能的选择情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制提示"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">控制提示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调试清单文件"><span class="nav-number">1.3.4.</span> <span class="nav-text">调试清单文件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lvkunpeng</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" rel="external nofollow" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.1.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
